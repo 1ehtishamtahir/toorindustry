@@ -1,68 +1,107 @@
-import type { Metadata } from "next";
-import { Download } from "lucide-react";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Catalogue",
-  description:
-    "Download our complete product catalogue featuring veterinary instruments and equestrian equipment.",
-};
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import { Download, BookOpen, ArrowRight } from "lucide-react";
+
+const FlipBookViewer = dynamic(() => import("@/components/FlipBookViewer"), {
+  ssr: false,
+  loading: () => (
+    <div className="flipbook-loading">
+      <div className="flipbook-spinner" />
+      <p>Loading catalogue viewer...</p>
+    </div>
+  ),
+});
+
+const catalogues = [
+  {
+    id: "veterinary",
+    label: "Veterinary Instruments",
+    pdfUrl: "/catalogue/Vetinary.pdf",
+    title: "Veterinary Catalogue",
+    description:
+      "18 categories including surgical instruments, A.I. equipment, dairy equipment, and more. Product codes T-### format.",
+  },
+  {
+    id: "equestrian",
+    label: "Equestrian Equipment",
+    pdfUrl: "/catalogue/Equestrian.pdf",
+    title: "Equestrian Catalogue",
+    description:
+      "8 categories including saddles, bits, gloves, rugs, and more. Product codes TI-E-### format.",
+  },
+];
 
 export default function CataloguePage() {
+  const [activeTab, setActiveTab] = useState("veterinary");
   const currentYear = new Date().getFullYear();
+
+  const active = catalogues.find((c) => c.id === activeTab)!;
+
   return (
     <>
       <section className="inner-hero">
         <div className="page-wrap">
-          <div className="section-kicker">Download</div>
-          <h1>Product<br /><em>Catalogue.</em></h1>
-          <p>Browse and download our complete product catalogue with detailed
-            specifications and images.</p>
+          <div className="section-kicker">Browse</div>
+          <h1>
+            Product<br />
+            <em>Catalogue.</em>
+          </h1>
+          <p>
+            Browse our complete product catalogue online or download the PDF for
+            offline reference.
+          </p>
         </div>
       </section>
 
-      <section className="section page-wrap" style={{ maxWidth: 800, margin: "0 auto" }}>
-        <div style={{ textAlign: "center", padding: "50px 0" }}>
-          <div style={{
-            width: 80, height: 80, background: "var(--ink)", color: "#fff",
-            borderRadius: 20, display: "flex", alignItems: "center", justifyContent: "center",
-            margin: "0 auto 24px"
-          }}>
-            <Download size={36} strokeWidth={1.5} />
+      <section className="flipbook-section">
+        <div className="page-wrap">
+          <div className="flipbook-tab-bar">
+            {catalogues.map((cat) => (
+              <button
+                key={cat.id}
+                className={`flipbook-tab ${activeTab === cat.id ? "active" : ""}`}
+                onClick={() => setActiveTab(cat.id)}
+              >
+                <BookOpen size={16} />
+                {cat.label}
+              </button>
+            ))}
           </div>
-          <h2 style={{ fontSize: 28, fontWeight: 800, margin: "0 0 12px" }}>Complete Product Catalogue</h2>
-          <p style={{ color: "#64748b", lineHeight: 1.7, maxWidth: 500, margin: "0 auto 28px" }}>
-            Our catalogue includes all veterinary instruments and equestrian
-            equipment with detailed specifications, product codes, and
-            high-quality images.
-          </p>
-          <a
-            href="/catalogue/toor-industries-catalogue.pdf"
-            download
-            className="button button-coral"
-          >
-            <Download size={17} /> Download PDF Catalogue
-          </a>
-          <p style={{ fontSize: 11, color: "#94a3b8", marginTop: 16 }}>
-            PDF Format — Updated {currentYear}
-          </p>
-        </div>
 
-        <div style={{ marginTop: 40 }}>
-          <h3 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 20px" }}>Catalogue Highlights</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-            <div style={{ border: "1px solid var(--line)", borderRadius: 12, padding: 24 }}>
-              <h4 style={{ fontWeight: 700, margin: "0 0 8px" }}>Veterinary Instruments</h4>
-              <p style={{ fontSize: 13, color: "#64748b", lineHeight: 1.6, margin: 0 }}>
-                18 categories including surgical instruments, A.I. equipment,
-                dairy equipment, and more. Product codes T-### format.
-              </p>
+          <div className="flipbook-info-row">
+            <div className="flipbook-info-text">
+              <h2>{active.title}</h2>
+              <p>{active.description}</p>
             </div>
-            <div style={{ border: "1px solid var(--line)", borderRadius: 12, padding: 24 }}>
-              <h4 style={{ fontWeight: 700, margin: "0 0 8px" }}>Equestrian Equipment</h4>
-              <p style={{ fontSize: 13, color: "#64748b", lineHeight: 1.6, margin: 0 }}>
-                8 categories including saddles, bits, gloves, rugs, and more.
-                Product codes TI-E-### format.
-              </p>
+            <a
+              href={active.pdfUrl}
+              download
+              className="button button-coral"
+            >
+              <Download size={17} /> Download PDF
+            </a>
+          </div>
+
+          <FlipBookViewer
+            key={active.id}
+            pdfUrl={active.pdfUrl}
+            title={active.title}
+          />
+
+          <div className="flipbook-hints">
+            <div className="flipbook-hint">
+              <ArrowRight size={14} />
+              Use arrow keys or swipe to flip pages
+            </div>
+            <div className="flipbook-hint">
+              <ArrowRight size={14} />
+              Click the fullscreen button for immersive reading
+            </div>
+            <div className="flipbook-hint">
+              <ArrowRight size={14} />
+              Zoom in / out for detail inspection
             </div>
           </div>
         </div>
