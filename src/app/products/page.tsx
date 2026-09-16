@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { veterinaryCategories, equestrianCategories, products, getProductsByCategory } from "@/data/products";
-import { ProductCatalogue } from "@/components/ProductTools";
+import { veterinaryCategories, equestrianCategories, getProductsByCategory } from "@/data/products";
 
 export const metadata: Metadata = { title: "Product Catalogue", description: "Browse veterinary instruments and equestrian equipment by category, product, or SKU." };
 
 export default function ProductsPage() {
   return <>
     <section className="inner-hero"><div className="page-wrap"><div className="section-kicker">The complete range</div><h1>Product<br /><em>catalogue.</em></h1><p>Explore {veterinaryCategories.length + equestrianCategories.length} categories and a growing collection of professional-grade instruments built for veterinary, equestrian, and OEM partners.</p></div></section>
-
-    {/* Search & Filter - Top */}
-    <section className="catalogue-section page-wrap"><ProductCatalogue products={products}/></section>
 
     {/* Veterinary Sub-Categories */}
     <section className="section page-wrap">
