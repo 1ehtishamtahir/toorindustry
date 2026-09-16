@@ -136,8 +136,14 @@ export function ProductCatalogue({
             className="product-card"
           >
             <div className={`product-art product-art-${index % 4}`}>
-              <span>{product.sku}</span>
-              <div className="instrument-mark" />
+              {product.images[0] ? (
+                <img src={product.images[0]} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+              ) : (
+                <>
+                  <span>{product.sku}</span>
+                  <div className="instrument-mark" />
+                </>
+              )}
             </div>
             <div className="product-meta">
               <span>{product.group}</span>

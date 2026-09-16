@@ -78,8 +78,14 @@ export default async function EquestrianCategoryPage({ params }: Props) {
                   style={{ flex: 1, display: "flex", flexDirection: "column" }}
                 >
                   <div className={`product-art`} style={{ flex: "0 0 auto" }}>
-                    <span>{product.sku}</span>
-                    <div className="instrument-mark" />
+                    {product.images[0] ? (
+                      <img src={product.images[0]} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                    ) : (
+                      <>
+                        <span>{product.sku}</span>
+                        <div className="instrument-mark" />
+                      </>
+                    )}
                   </div>
                   <div className="product-meta" style={{ flex: 1, display: "flex", flexDirection: "column" }}>
                     <span>{product.sku}</span>

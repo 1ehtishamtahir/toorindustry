@@ -71,14 +71,22 @@ export default async function ProductDetailPage({ params }: Props) {
           <div style={{
             background: "var(--paper)", borderRadius: 16, height: 400,
             display: "flex", alignItems: "center", justifyContent: "center",
-            border: "1px solid var(--line)"
+            border: "1px solid var(--line)", overflow: "hidden"
           }}>
-            <div style={{ textAlign: "center" }}>
-              <p style={{ fontSize: 36, fontWeight: 800, color: "var(--line)", margin: "0 0 8px", letterSpacing: "-0.03em" }}>
-                {product.sku}
-              </p>
-              <p style={{ fontSize: 11, color: "#94a3b8" }}>(Product image placeholder)</p>
-            </div>
+            {product.images[0] ? (
+              <img
+                src={product.images[0]}
+                alt={product.name}
+                style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
+              />
+            ) : (
+              <div style={{ textAlign: "center" }}>
+                <p style={{ fontSize: 36, fontWeight: 800, color: "var(--line)", margin: "0 0 8px", letterSpacing: "-0.03em" }}>
+                  {product.sku}
+                </p>
+                <p style={{ fontSize: 11, color: "#94a3b8" }}>(Product image placeholder)</p>
+              </div>
+            )}
           </div>
 
           {/* Product Info */}
@@ -144,8 +152,14 @@ export default async function ProductDetailPage({ params }: Props) {
                   className="product-card"
                 >
                   <div className="product-art">
-                    <span>{rp.sku}</span>
-                    <div className="instrument-mark" />
+                    {rp.images[0] ? (
+                      <img src={rp.images[0]} alt={rp.name} style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                    ) : (
+                      <>
+                        <span>{rp.sku}</span>
+                        <div className="instrument-mark" />
+                      </>
+                    )}
                   </div>
                   <div className="product-meta">
                     <span>{rp.sku}</span>
