@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { SITE, COMPANY } from "@/lib/config";
+import { veterinaryCategories, equestrianCategories } from "@/data/products";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -10,20 +12,20 @@ export default function Footer() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 32 }}>
           {/* Company Info */}
           <div>
-            <h3 style={{ fontSize: 16, fontWeight: 800, margin: "0 0 16px" }}>Toor Industries</h3>
+            <h3 style={{ fontSize: 16, fontWeight: 800, margin: "0 0 16px" }}>{SITE.name}</h3>
             <p style={{ fontSize: 13, color: "#94a3b8", lineHeight: 1.6, margin: "0 0 16px" }}>
               Leading manufacturers and exporters of top quality Veterinary and
-              Equestrian instruments since 1960.
+              Equestrian instruments since {COMPANY.founded}.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: 13, color: "#94a3b8" }}>
               <p style={{ display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
-                <Phone size={14} /> +92 300 6126063
+                <Phone size={14} /> {SITE.phone}
               </p>
               <p style={{ display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
-                <Mail size={14} /> info@toorindustries.com
+                <Mail size={14} /> {SITE.email}
               </p>
               <p style={{ display: "flex", alignItems: "center", gap: 8, margin: 0 }}>
-                <MapPin size={14} /> Sialkot, Punjab, Pakistan
+                <MapPin size={14} /> {SITE.address.city}, {SITE.address.province}, {SITE.address.country}
               </p>
             </div>
           </div>
@@ -45,11 +47,13 @@ export default function Footer() {
           <div>
             <h3 style={{ fontSize: 16, fontWeight: 800, margin: "0 0 16px" }}>Veterinary</h3>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10, fontSize: 13, color: "#94a3b8" }}>
-              <li><Link href="/products/veterinary/a-i-equipments" style={{ transition: "color .3s" }}>A.I. Equipments</Link></li>
-              <li><Link href="/products/veterinary/surgical-instruments" style={{ transition: "color .3s" }}>Surgical Instruments</Link></li>
-              <li><Link href="/products/veterinary/dairy-equipments" style={{ transition: "color .3s" }}>Dairy Equipments</Link></li>
-              <li><Link href="/products/veterinary/veterinary-kits" style={{ transition: "color .3s" }}>Veterinary Kits</Link></li>
-              <li><Link href="/products/veterinary/shearing-equipments" style={{ transition: "color .3s" }}>Shearing Equipments</Link></li>
+              {veterinaryCategories.slice(0, 8).map((cat) => (
+                <li key={cat.slug}>
+                  <Link href={`/products/veterinary/${cat.slug}`} style={{ transition: "color .3s" }}>
+                    {cat.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -57,11 +61,13 @@ export default function Footer() {
           <div>
             <h3 style={{ fontSize: 16, fontWeight: 800, margin: "0 0 16px" }}>Equestrian</h3>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10, fontSize: 13, color: "#94a3b8" }}>
-              <li><Link href="/products/equestrian/saddles" style={{ transition: "color .3s" }}>Saddles</Link></li>
-              <li><Link href="/products/equestrian/bits" style={{ transition: "color .3s" }}>Bits</Link></li>
-              <li><Link href="/products/equestrian/gloves" style={{ transition: "color .3s" }}>Gloves</Link></li>
-              <li><Link href="/products/equestrian/stirrups" style={{ transition: "color .3s" }}>Stirrups</Link></li>
-              <li><Link href="/products/equestrian/rugs" style={{ transition: "color .3s" }}>Rugs</Link></li>
+              {equestrianCategories.map((cat) => (
+                <li key={cat.slug}>
+                  <Link href={`/products/equestrian/${cat.slug}`} style={{ transition: "color .3s" }}>
+                    {cat.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -70,8 +76,8 @@ export default function Footer() {
       {/* Bottom bar */}
       <div style={{ borderTop: "1px solid rgba(255,255,255,.1)" }}>
         <div className="page-wrap" style={{ padding: "16px 0", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 12, color: "#64748b" }}>
-          <p style={{ margin: 0 }}>&copy; 1960–{currentYear} Toor Industries. All rights reserved.</p>
-          <p style={{ margin: 0 }}>Manufactured in Sialkot, Pakistan</p>
+          <p style={{ margin: 0 }}>&copy; 1960–{currentYear} {SITE.name}. All rights reserved.</p>
+          <p style={{ margin: 0 }}>Manufactured in {SITE.address.city}, {SITE.address.country}</p>
         </div>
       </div>
 

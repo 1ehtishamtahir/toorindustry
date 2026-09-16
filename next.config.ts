@@ -171,6 +171,18 @@ const nextConfig: NextConfig = {
       },
       // Old product URL pattern (numeric IDs) - map to new slug-based URLs
       // These are examples; actual old numeric IDs would need to be mapped individually
+
+      // Fix catalogue typo redirect
+      {
+        source: "/catalogue/Vetinary.pdf",
+        destination: "/Catalogue/Veterinary.pdf",
+        permanent: true,
+      },
+      {
+        source: "/Catalogue/Vetinary.pdf",
+        destination: "/Catalogue/Veterinary.pdf",
+        permanent: true,
+      },
     ];
   },
 };

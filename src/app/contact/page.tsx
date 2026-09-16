@@ -1,9 +1,7 @@
 "use client";
 
 import { Phone, Mail, MapPin, Clock, ExternalLink } from "lucide-react";
-
-const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Toor+Industries/@32.5,74.3,15z";
-const EMBED_MAP_URL = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3399.5!2d74.3!3d32.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDMwJzAwLjAiTiA3NMKwMTgnMDAuMCJF!5e0!3m2!1sen!2spk!4v1";
+import { SITE } from "@/lib/config";
 
 export default function ContactPage() {
   return (
@@ -11,9 +9,15 @@ export default function ContactPage() {
       <section className="inner-hero">
         <div className="page-wrap">
           <div className="section-kicker">Get in Touch</div>
-          <h1>Contact<br /><em>Us.</em></h1>
-          <p>We welcome inquiries from distributors, importers, and wholesale
-            dealers worldwide.</p>
+          <h1>
+            Contact
+            <br />
+            <em>Us.</em>
+          </h1>
+          <p>
+            We welcome inquiries from distributors, importers, and wholesale
+            dealers worldwide.
+          </p>
         </div>
       </section>
 
@@ -31,9 +35,12 @@ export default function ContactPage() {
                   <div>
                     <h3>Address</h3>
                     <p>
-                      Toor Industries<br />
-                      31-622 Greenwood Street<br />
-                      Sialkot, Punjab, Pakistan
+                      {SITE.name}
+                      <br />
+                      {SITE.address.street}
+                      <br />
+                      {SITE.address.city}, {SITE.address.province},{" "}
+                      {SITE.address.country}
                     </p>
                   </div>
                 </div>
@@ -44,7 +51,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3>Phone</h3>
-                    <a href="tel:+923006126063">+92 300 6126063</a>
+                    <a href={`tel:${SITE.phoneRaw}`}>{SITE.phone}</a>
                   </div>
                 </div>
 
@@ -54,7 +61,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3>Email</h3>
-                    <a href="mailto:info@toorindustries.com">info@toorindustries.com</a>
+                    <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
                   </div>
                 </div>
 
@@ -65,7 +72,8 @@ export default function ContactPage() {
                   <div>
                     <h3>Business Hours</h3>
                     <p>
-                      Monday – Saturday: 9:00 AM – 6:00 PM (PKT)<br />
+                      Monday – Saturday: 9:00 AM – 6:00 PM (PKT)
+                      <br />
                       Sunday: Closed
                     </p>
                   </div>
@@ -73,7 +81,7 @@ export default function ContactPage() {
               </div>
 
               <a
-                href={GOOGLE_MAPS_URL}
+                href={SITE.maps.place}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-maps-btn"
@@ -84,14 +92,14 @@ export default function ContactPage() {
 
             <div className="contact-map-card">
               <iframe
-                src={EMBED_MAP_URL}
+                src={SITE.maps.embed}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Toor Industries Location"
+                title={`${SITE.name} Location`}
               />
             </div>
           </div>

@@ -7,6 +7,15 @@ import { ChevronLeft, ChevronRight, Maximize2, Minimize2, ZoomIn, ZoomOut } from
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.mjs`;
 
+interface FlipBookInstance {
+  pageFlip: () => {
+    flipNext: () => void;
+    flipPrev: () => void;
+    getCurrentPageIndex: () => number;
+    getPageCount: () => number;
+  };
+}
+
 interface FlipBookViewerProps {
   pdfUrl: string;
   title: string;
@@ -22,7 +31,7 @@ export default function FlipBookViewer({ pdfUrl, title }: FlipBookViewerProps) {
   const [isMobile, setIsMobile] = useState(false);
   const [pageDimensions, setPageDimensions] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
-  const flipBookRef = useRef<any>(null);
+  const flipBookRef = useRef<FlipBookInstance | null>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 800);
@@ -90,7 +99,7 @@ export default function FlipBookViewer({ pdfUrl, title }: FlipBookViewerProps) {
     flipBookRef.current?.pageFlip().flipPrev();
   }, []);
 
-  const handlePageFlip = useCallback((e: any) => {
+  const handlePageFlip = useCallback((e: { data: number }) => {
     setCurrentPage(e.data);
   }, []);
 

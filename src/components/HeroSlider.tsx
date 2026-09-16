@@ -85,19 +85,6 @@ export default function HeroSlider() {
                 <ChevronRight size={17} className="transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
-
-            <div className="flex items-center gap-8 mt-16 pt-8 border-t border-white/10">
-              {[
-                { num: "65+", label: "Years" },
-                { num: "40+", label: "Countries" },
-                { num: "500+", label: "Products" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="text-2xl font-bold text-white">{stat.num}</div>
-                  <div className="text-xs text-white/50 uppercase tracking-wider">{stat.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { Download, BookOpen, ArrowRight } from "lucide-react";
+import { SITE } from "@/lib/config";
 
 const FlipBookViewer = dynamic(() => import("@/components/FlipBookViewer"), {
   ssr: false,
@@ -18,7 +19,7 @@ const catalogues = [
   {
     id: "veterinary",
     label: "Veterinary Instruments",
-    pdfUrl: "/catalogue/Vetinary.pdf",
+    pdfUrl: SITE.catalogue.veterinary,
     title: "Veterinary Catalogue",
     description:
       "18 categories including surgical instruments, A.I. equipment, dairy equipment, and more. Product codes T-### format.",
@@ -26,7 +27,7 @@ const catalogues = [
   {
     id: "equestrian",
     label: "Equestrian Equipment",
-    pdfUrl: "/catalogue/Equestrian.pdf",
+    pdfUrl: SITE.catalogue.equestrian,
     title: "Equestrian Catalogue",
     description:
       "8 categories including saddles, bits, gloves, rugs, and more. Product codes TI-E-### format.",
@@ -35,7 +36,6 @@ const catalogues = [
 
 export default function CataloguePage() {
   const [activeTab, setActiveTab] = useState("veterinary");
-  const currentYear = new Date().getFullYear();
 
   const active = catalogues.find((c) => c.id === activeTab)!;
 
@@ -45,7 +45,8 @@ export default function CataloguePage() {
         <div className="page-wrap">
           <div className="section-kicker">Browse</div>
           <h1>
-            Product<br />
+            Product
+            <br />
             <em>Catalogue.</em>
           </h1>
           <p>
