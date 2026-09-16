@@ -25,13 +25,19 @@ const heroSlides = [
 
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % heroSlides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [mounted]);
 
   return (
     <section className="relative h-[90vh] min-h-[650px] overflow-hidden bg-black">

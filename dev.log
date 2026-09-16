@@ -1,0 +1,52 @@
+
+> toor-industries@0.1.0 dev
+> next dev --webpack
+
+▲ Next.js 16.3.5 (webpack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.100.35:3000
+✓ Ready in 679ms
+✓ Running next.config.ts took 54ms
+
+ GET / 200 in 1951ms (next.js: 1554ms, application-code: 397ms)
+ GET /images/logo.png 404 in 736ms (next.js: 576ms, application-code: 159ms)
+⨯ The requested resource isn't a valid image for /images/logo.png received null
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HotReload globalError={[...]} webSocket={WebSocket} staticIndicatorState={{pathname:null, ...}}>
+      <AppDevOverlayErrorBoundary globalError={[...]}>
+        <ReplaySsrOnlyErrors>
+        <DevRootHTTPAccessFallbackBoundary>
+          <HTTPAccessFallbackBoundary notFound={<NotAllowedRootHTTPFallbackError>}>
+            <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<NotAllowedRootHTTPFallbackError>} ...>
+              <RedirectBoundary>
+                <RedirectErrorBoundary router={{...}}>
+                  <Head>
+                  <__next_root_layout_boundary__>
+                    <SegmentViewNode type="layout" pagePath="layout.tsx">
+                      <SegmentTrieNode>
+                      <link>
+                      <RootLayout>
+                        <html lang="en" className="__variable...">
+                          <body
+                            className="min-h-full flex flex-col"
+-                           cz-shortcut-listen="true"
+                          >
+                  ...
+ 
+[browser] Image with src "/images/logo.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET / 200 in 296ms (next.js: 169ms, application-code: 127ms)
+ GET / 200 in 176ms (next.js: 99ms, application-code: 77ms)
+ GET / 200 in 120ms (next.js: 52ms, application-code: 68ms)
+ GET / 200 in 166ms (next.js: 99ms, application-code: 68ms)

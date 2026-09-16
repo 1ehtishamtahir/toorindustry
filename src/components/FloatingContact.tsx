@@ -9,8 +9,10 @@ const inquiryKey = "toor-inquiry-list";
 export default function FloatingContact() {
   const [items, setItems] = useState<Product[]>([]);
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const sync = () => {
       try {
         setItems(JSON.parse(localStorage.getItem(inquiryKey) || "[]"));
@@ -26,6 +28,8 @@ export default function FloatingContact() {
   const mailBody = items
     .map((item) => `- ${item.name} (${item.sku})`)
     .join("%0D%0A");
+
+  if (!mounted) return null;
 
   return (
     <>

@@ -76,8 +76,14 @@ function StatItem({
 export default function AnimatedStats() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     const el = ref.current;
     if (!el) return;
 
@@ -93,7 +99,7 @@ export default function AnimatedStats() {
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [mounted]);
 
   return (
     <section className="stats-strip" ref={ref}>
@@ -103,7 +109,7 @@ export default function AnimatedStats() {
             key={stat.label}
             {...stat}
             delay={i * 0.15}
-            visible={visible}
+            visible={mounted && visible}
           />
         ))}
       </div>
